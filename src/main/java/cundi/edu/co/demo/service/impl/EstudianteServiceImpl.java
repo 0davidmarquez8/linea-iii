@@ -4,7 +4,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,14 +13,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cundi.edu.co.demo.controller.EstudianteController;
-import cundi.edu.co.demo.dto.UsuarioDto;
 import cundi.edu.co.demo.entity.Estudiante;
 import cundi.edu.co.demo.exception.ArgumentRequiredException;
 import cundi.edu.co.demo.exception.ConflictException;
 import cundi.edu.co.demo.exception.ModelNotFoundException;
 import cundi.edu.co.demo.repository.IEstudianteRepository;
 import cundi.edu.co.demo.service.IEstudianteService;
-import cundi.edu.co.demo.service.IUsuarioService;
 @Service
 @Qualifier("estudiante")
 public class EstudianteServiceImpl implements IEstudianteService {

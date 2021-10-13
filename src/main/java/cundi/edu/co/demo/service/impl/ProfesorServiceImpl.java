@@ -56,7 +56,7 @@ public class ProfesorServiceImpl  implements IUsuarioService {
 	}
 	
 	private void addLinkDelete(UsuarioDto estudiante, int id) {
-		estudiante.add(linkTo(methodOn(EstudianteController.class).eliminar(id)).withRel("eliminar"));
+		//estudiante.add(linkTo(methodOn(EstudianteController.class).eliminar(id)).withRel("eliminar"));
 	}
 	
 	/*private void addLinkCreate(UsuarioDto estudiante) throws ModelNotFoundException {
