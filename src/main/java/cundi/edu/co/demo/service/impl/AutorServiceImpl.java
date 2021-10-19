@@ -67,6 +67,19 @@ public class AutorServiceImpl implements IAutorService {
 		
 	}
 
+	@Override
+	public Autor obtenerPorIdJpql(Integer id) {
+		// TODO Auto-generated method stub
+		return this.repo.obtenerPorId(id);
+	}
+
+	@Override
+	public Autor obtenerPorIdSql(Integer id) {
+		return this.repo.obtenerById(id);
+	}
+
+	
+
 	
 
 }

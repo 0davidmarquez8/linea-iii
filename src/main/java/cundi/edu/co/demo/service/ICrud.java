@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 import cundi.edu.co.demo.exception.ArgumentRequiredException;
 import cundi.edu.co.demo.exception.ConflictException;
 import cundi.edu.co.demo.exception.ModelNotFoundException;
@@ -23,5 +22,9 @@ public interface ICrud<T, I> {
 	public T editar(T entity) throws ArgumentRequiredException, ModelNotFoundException, ConflictException;
 	
 	public void eliminar(int id) throws ModelNotFoundException;
+	
+	T obtenerPorIdJpql(Integer id);
+	
+	T obtenerPorIdSql(Integer id);
 	
 }
