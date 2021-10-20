@@ -16,4 +16,7 @@ public interface IAutorRepository extends JpaRepository<Autor, Integer> {
 	// SQL
 	@Query(value = "Select * FROM autor WHERE autor.id = :id", nativeQuery = true)
 	Autor obtenerById(@Param("id") Integer id);
+	
+	public Boolean existsByCorreo(String correo);
+	public Boolean existsByCedula(String cedula);
 }
