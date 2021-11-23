@@ -58,6 +58,12 @@ public class AutorServiceImpl implements IAutorService {
 	@Override
 	public Autor guardar(Autor entity) throws ConflictException, ModelNotFoundException {
 
+		if (entity.getLibro() != null) {
+            for (Libro libro : entity.getLibro()) {
+                libro.setAutor(entity);
+            }
+        }
+
 		if (repo.existsByCedula(entity.getCedula()))
 			throw new ConflictException("La cedula ya se encuentra registrada");
 
