@@ -2,7 +2,7 @@ version: '2'
 
 services:
   api:
-    image: "camilovargas913/linea3:latest"
+    image: "api"
     build:
       context: .
     container_name: api
