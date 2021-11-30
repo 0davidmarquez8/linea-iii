@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiResponses;
 import springfox.documentation.annotations.ApiIgnore;
 
 @RestController
-@RequestMapping("/autores")
+@RequestMapping("/aut")
 @Api(tags = "Controlador (API's) de Autores", description = "Se evidencian todas las API's correspondientes a los Autores.")
 public class AutorController {
 
