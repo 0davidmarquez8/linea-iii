@@ -1,4 +1,5 @@
-FROM openjdk:8-jdk-slim
-COPY "./target/LineaIII-0.0.1-SNAPSHOT.jar" "linea.jar"
+FROM tomcat:8.0-jre8
 EXPOSE 8080
-ENTRYPOINT [ "java","-jar","linea.jar" ]
+RUN apt-get update
+RUN apt-get install nano
+CMD ["catalina.sh","run"]
