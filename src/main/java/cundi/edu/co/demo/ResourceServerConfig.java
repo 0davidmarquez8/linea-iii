@@ -40,7 +40,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
                 .requestMatchers()
                 .and()
                 .authorizeRequests()                  
-                .antMatchers("/aut/**" ).authenticated()              
+                .antMatchers("/aut/**" ).permitAll()              
                 .antMatchers("/editoriales/**" ).permitAll()
                 .antMatchers("/estudiantes/**" ).authenticated()//necesito estar logeado  
                 .antMatchers("/registro/**" ).permitAll() // no necesito estar logeado
