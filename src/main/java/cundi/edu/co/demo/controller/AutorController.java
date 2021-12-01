@@ -37,7 +37,7 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping("/autores")
 @Api(tags = "Controlador (API's) de Autores", description = "Se evidencian todas las API's correspondientes a los Autores.")
-@PreAuthorize("hasAuthority('Administrador')")
+//@PreAuthorize("hasAuthority('Administrador')")
 public class AutorController {
 
 	@Autowired
