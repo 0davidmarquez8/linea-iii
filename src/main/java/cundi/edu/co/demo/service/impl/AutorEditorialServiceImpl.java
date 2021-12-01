@@ -12,11 +12,42 @@ import cundi.edu.co.demo.exception.ConflictException;
 import cundi.edu.co.demo.exception.ModelNotFoundException;
 import cundi.edu.co.demo.repository.IAutorEditorialRepo;
 import cundi.edu.co.demo.service.IAutorEditorialService;
+import cundi.edu.co.demo.service.IEditorialConsulta;
 
 public class AutorEditorialServiceImpl implements IAutorEditorialService{
 
 	@Autowired
 	private IAutorEditorialRepo repo;
+	
+
+	@Override
+	public void guardar(AutorEditorial obj) throws ConflictException {
+		//Agregar validaciones respectivas
+		this.repo.guardarNativo(obj.getAutor().getId(), obj.getEditorial().getId(), obj.getFecha());
+	}
+
+	@Override
+	public void editar(AutorEditorial obj) throws ArgumentRequiredException, ModelNotFoundException, ConflictException {
+		// TODO Auto-generated method stub
+		//Generalmente no se utiliza el editar en una table intermedia 
+	}
+
+	@Override
+	public void eliminar(int obj) throws ModelNotFoundException {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void eliminarNativo(Integer idAutor, Integer idEditorial) throws ModelNotFoundException {
+		// TODO Auto-generated method stub
+		//Validaciones pertinentes
+		this.repo.eliminarNativa(idAutor, idEditorial);
+	}
+
+	@Override
+	public Page<IEditorialConsulta> retornarEditorialAutores(Long id, Pageable page) {
+		return this.repo.findByQuery(id,page);
+	}
 
 	@Override
 	public Page<AutorEditorial> obtenerPaginado(int page, int size) {
@@ -49,26 +80,6 @@ public class AutorEditorialServiceImpl implements IAutorEditorialService{
 	}
 
 	@Override
-	public AutorEditorial guardar(AutorEditorial entity) throws ConflictException, ModelNotFoundException {
-		// TODO Auto-generated method stub
-		this.repo.guardarNativo(entity.getAutor().getId(), entity.getEditorial().getId(), entity.getFecha());
-		return entity;
-	}
-
-	@Override
-	public AutorEditorial editar(AutorEditorial entity)
-			throws ArgumentRequiredException, ModelNotFoundException, ConflictException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void eliminar(int id) throws ModelNotFoundException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public AutorEditorial obtenerPorIdJpql(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -80,12 +91,5 @@ public class AutorEditorialServiceImpl implements IAutorEditorialService{
 		return null;
 	}
 
-	@Override
-	public void eliminarNativo(Integer idAutor, Integer idEditorial) throws ModelNotFoundException {
-		// TODO Auto-generated method stub
-		this.repo.eliminarNativa(idAutor, idEditorial);
-	}
-	
-	
 
 }

@@ -4,12 +4,15 @@ import java.time.LocalDate;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import cundi.edu.co.demo.entity.AutorEditorial;
+import cundi.edu.co.demo.service.IEditorialConsulta;
 
 public interface IAutorEditorialRepo extends JpaRepository<AutorEditorial, Integer> {
 
@@ -24,4 +27,8 @@ public interface IAutorEditorialRepo extends JpaRepository<AutorEditorial, Integ
 	@Modifying
 	@Query(value = "DELETE FROM autor_editorial where id_autor = :idAutor and id_editorial = :idEditorial ",  nativeQuery = true)
 	void eliminarNativa(@Param("idAutor") Integer idAutor, @Param("idEditorial") Integer idEditorial);
+	
+	//SQL 
+	@Query(value = "  SELECT id as id , correo as correo, nit as nit , nombre as nombre FROM public.editorial ,public.autor_editorial Where public.autor_editorial.id_autor = :id and  public.autor_editorial.id_editorial = public.editorial.id", nativeQuery  = true)
+	Page<IEditorialConsulta> findByQuery(@Param("id") Long id, Pageable pageable);
 }

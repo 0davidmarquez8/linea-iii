@@ -3,20 +3,27 @@ package cundi.edu.co.demo.service.impl;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import cundi.edu.co.demo.controller.EstudianteController;
 import cundi.edu.co.demo.controller.ProfesorController;
 import cundi.edu.co.demo.dto.UsuarioDto;
+import cundi.edu.co.demo.entity.Usuario;
+import cundi.edu.co.demo.exception.ArgumentRequiredException;
+import cundi.edu.co.demo.exception.ConflictException;
 import cundi.edu.co.demo.exception.ModelNotFoundException;
 import cundi.edu.co.demo.service.IUsuarioService;
 
 @Service
 @Qualifier("profesor")
-public class ProfesorServiceImpl  implements IUsuarioService {
+public class ProfesorServiceImpl   {
 
-	@Override
+	/*@Override
 	public UsuarioDto retornar(int i) throws ModelNotFoundException {
 		// TODO Auto-generated method stub
 		UsuarioDto pro  = new UsuarioDto("Carlos", "Quintero","carlos@gmail.com","421217130","tercero","Carlos1223",2, 1);
@@ -33,7 +40,7 @@ public class ProfesorServiceImpl  implements IUsuarioService {
 		addLinkGetById(est, estudiante.getId());
 		/*addLinkDelete(est, 1);
 		addLinkGetById(est, 1);*/
-		return est;
+		/*return est;
 	}
 
 	@Override
@@ -70,5 +77,6 @@ public class ProfesorServiceImpl  implements IUsuarioService {
 	private void addLinkGetById(UsuarioDto estudiante, int id) throws ModelNotFoundException {
 		estudiante.add(linkTo(methodOn(EstudianteController.class).retonar(id)).withRel("obtenerById"));
 	}
+
 
 }

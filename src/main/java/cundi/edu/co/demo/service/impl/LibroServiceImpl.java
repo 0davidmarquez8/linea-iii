@@ -21,27 +21,11 @@ public class LibroServiceImpl implements ILibroService {
 	@Autowired
 	private ILibroRepository repo;
 
-	@Override
-	public Page<Libro> obtenerPaginado(int page, int size) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 	@Override
-	public Page<Libro> obtenerPaginado(Pageable pageable) {
+	public Page<Libro> obtenerPaginadol(Pageable pageable) {
 		return this.repo.findAll(pageable);
-	}
-
-	@Override
-	public List<Libro> obtener() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Libro retornar(int i) throws ModelNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -84,6 +68,14 @@ public class LibroServiceImpl implements ILibroService {
 			throw new ModelNotFoundException("Autor no encontrado");
 	}
 
+
+	@Override
+	public Libro retornar(int i) throws ModelNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	@Override
 	public Libro obtenerPorIdJpql(Integer id) {
 		// TODO Auto-generated method stub
@@ -98,6 +90,36 @@ public class LibroServiceImpl implements ILibroService {
 
 	private Boolean validarExistenciaPorId(int idLibro) {
 		return this.repo.existsById(idLibro);
+	}
+
+	@Override
+	public Page<Object> obtenerPaginado(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Object> obtenerPaginado(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Object> obtener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void guardar(Object entity) throws ConflictException, ModelNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void editar(Object entity) throws ArgumentRequiredException, ModelNotFoundException, ConflictException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import ch.qos.logback.core.pattern.Converter;
 import cundi.edu.co.demo.dto.AutorDto;
 import cundi.edu.co.demo.entity.Autor;
+import cundi.edu.co.demo.entity.Editorial;
 import cundi.edu.co.demo.entity.Estudiante;
 import cundi.edu.co.demo.exception.ArgumentRequiredException;
 import cundi.edu.co.demo.exception.ConflictException;
 import cundi.edu.co.demo.exception.ModelNotFoundException;
+import cundi.edu.co.demo.service.IAutorEditorialService;
 import cundi.edu.co.demo.service.IAutorService;
+import cundi.edu.co.demo.service.IEditorialConsulta;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -34,16 +37,18 @@ import springfox.documentation.annotations.ApiIgnore;
 @RestController
 @RequestMapping("/aut")
 @Api(tags = "Controlador (API's) de Autores", description = "Se evidencian todas las API's correspondientes a los Autores.")
+@PreAuthorize("hasAuthority('Administrador')")
 public class AutorController {
 
 	@Autowired
 	private IAutorService repo;
-
+	
 	ModelMapper modelMapper = new ModelMapper();
 
+	//@PreAuthorize("hasAuthority('Administrador')  OR hasAuthority('Autor') ")
 	@GetMapping(value = "/obtener-paginado/{estado}", produces = "application/json")
 	public ResponseEntity<?> obtenerAutoresPaginado(Pageable page, @PathVariable Integer estado) {
-		Page<Autor> autores = repo.obtenerPaginado(page);
+		Page<Autor> autores = repo.obtenerPaginadog(page);
 		if (estado == 0) {
 			// Page<AutorDto> pageAutorDto = autores.map(new Converter<Autor, AutorDto>());
 
@@ -54,24 +59,32 @@ public class AutorController {
 			return new ResponseEntity<Page<Autor>>(autores, HttpStatus.OK);
 		}
 	}
+	
+	@GetMapping("/retornaEditorialPorAutor/{id}")
+	public ResponseEntity<?> retornarPorId(@PathVariable Long id,Pageable page)throws ModelNotFoundException {
+		Page<IEditorialConsulta> listaAutor = repo.retornarEditorialAutores(id,page);
+		Page<Editorial> pageAutorDto = repo.mapEntityPageIntoDtoPage(listaAutor,Editorial.class);
+		return new ResponseEntity<Object>(pageAutorDto, HttpStatus.OK);
+	}
+
 
 	@GetMapping(value = "/obtener-jpql/{id}", produces = "application/json")
 	public ResponseEntity<?> obtenerAutorPorIdJpql(@PathVariable Integer id) {
-		Autor autor = repo.obtenerPorIdJpql(id);
+		Object autor = repo.obtenerPorIdJpql(id);
 		AutorDto autorDto = modelMapper.map(autor, AutorDto.class);
 		return new ResponseEntity<AutorDto>(autorDto, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/obtener-sql/{id}", produces = "application/json")
 	public ResponseEntity<?> obtenerAutorPorIdSql(@PathVariable Integer id) {
-		Autor autor = repo.obtenerPorIdSql(id);
-		return new ResponseEntity<Autor>(autor, HttpStatus.OK);
+		Object autor = repo.obtenerPorIdSql(id);
+		return new ResponseEntity<Object>(autor, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/obtene-id/{id}", produces = "application/json")
 	public ResponseEntity<?> obtenerAutorPorId(@PathVariable Integer id) throws ModelNotFoundException {
-		Autor autor = repo.retornarPorId(id);
-		return new ResponseEntity<Autor>(autor, HttpStatus.OK);
+		Object autor = repo.retornarPorId(id);
+		return new ResponseEntity<Object>(autor, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "API para crear un estudiante")
@@ -85,7 +98,7 @@ public class AutorController {
 	public ResponseEntity<?> guardar(@Validated @RequestBody Autor autor)
 			throws ConflictException, ModelNotFoundException {
 		Autor estudiantes = repo.guardar(autor);
-		return new ResponseEntity<Autor>(estudiantes, HttpStatus.OK);
+		return new ResponseEntity<Autor>(estudiantes, HttpStatus.OK); 
 	}
 
 	@ApiOperation(value = "API para actualizar un Autor")

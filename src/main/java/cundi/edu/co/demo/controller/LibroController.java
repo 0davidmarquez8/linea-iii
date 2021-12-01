@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/libro")
 @Api(tags = "Controlador (API's) de Libro", description = "Se evidencian todas las API's correspondientes a los libro.")
+@PreAuthorize("hasAuthority('Autor')")
 public class LibroController {
 	@Autowired
 	private ILibroService repo;
@@ -38,21 +40,21 @@ public class LibroController {
 	
 	@GetMapping(value = "/obtener-paginado", produces = "application/json")
 	public ResponseEntity<?> obtenerAutoresPaginado(Pageable page) {
-		Page<Libro> libro = repo.obtenerPaginado(page);
+		Page<Libro> libro = repo.obtenerPaginadol(page);
 		return new ResponseEntity<Page<Libro>>(libro, HttpStatus.OK);
 	}
 
 
 	@GetMapping(value = "/obtener-sql/{id}", produces = "application/json")
 	public ResponseEntity<?> obtenerAutorPorIdSql(@PathVariable Integer id) {
-		Libro libro = repo.obtenerPorIdSql(id);
-		return new ResponseEntity<Libro>(libro, HttpStatus.OK);
+		Object libro = repo.obtenerPorIdSql(id);
+		return new ResponseEntity<Object>(libro, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/obtene-id/{id}", produces = "application/json")
 	public ResponseEntity<?> obtenerAutorPorId(@PathVariable Integer id) throws ModelNotFoundException {
-		Libro libro = repo.retornarPorId(id);
-		return new ResponseEntity<Libro>(libro, HttpStatus.OK);
+		Object libro = repo.retornarPorId(id);
+		return new ResponseEntity<Object>(libro, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "API para crear un estudiante")

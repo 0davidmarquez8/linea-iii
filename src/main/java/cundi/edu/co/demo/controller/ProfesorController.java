@@ -23,7 +23,7 @@ import io.swagger.annotations.*;
 @Api (tags = "Controlador (API's) de profesores",  description = "Se evidencian todas las API's correspondientes a los profesores.")
 public class ProfesorController {
 
-	@Autowired
+	/*@Autowired
 	@Qualifier("profesor")
 	private IUsuarioService service;
 
@@ -37,8 +37,9 @@ public class ProfesorController {
             @ApiResponse(code = 500, message = "Error inesperado del sistema") })
 	@GetMapping(value = "/obtener/{id}", produces = "application/json")
 	public ResponseEntity<UsuarioDto> retonar(@ApiParam(value = "ID del profesor a buscar", example = "12", required = true) @PathVariable int id) throws ModelNotFoundException {
-		UsuarioDto profesor = service.retornar(id);
-		return new ResponseEntity<UsuarioDto>(profesor, HttpStatus.OK);
+		/*UsuarioDto profesor = service.retornar(id);
+		return new ResponseEntity<UsuarioDto>(profesor, HttpStatus.OK);*/
+		/*return new ResponseEntity<UsuarioDto>(HttpStatus.OK);
 
 	}
 
@@ -65,8 +66,8 @@ public class ProfesorController {
             @ApiResponse(code = 500, message = "Error inesperado del sistema") })
 	@PutMapping(value = "/editar", consumes = "application/json")
 	public ResponseEntity<?> editar(@Validated @RequestBody UsuarioDto profesor) throws ModelNotFoundException {
-		UsuarioDto est = service.editar(profesor);
-		return new ResponseEntity<Object>(est, HttpStatus.OK);
+		//UsuarioDto est = service.editar(profesor);
+		return new ResponseEntity<UsuarioDto>(HttpStatus.OK);
 	}
 
 	// 204
@@ -80,8 +81,8 @@ public class ProfesorController {
             @ApiResponse(code = 500, message = "Error inesperado del sistema") })
 	@DeleteMapping(value = "/eliminar/{i}") 
 	public ResponseEntity<?> eliminar(@ApiParam(value = "ID del profesor a eliminar", example = "12", required = true) @PathVariable int id) {
-		service.eliminar(id);
+		//service.eliminar(id);
 		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
-	}
+	}*/
 
 }

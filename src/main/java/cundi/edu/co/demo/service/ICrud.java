@@ -17,9 +17,9 @@ public interface ICrud<T, I> {
 	
 	public T retornarPorId(I id) throws ModelNotFoundException;
 	
-	public T guardar(T entity) throws ConflictException, ModelNotFoundException;
+	public void guardar(T entity) throws ConflictException, ModelNotFoundException;
 	
-	public T editar(T entity) throws ArgumentRequiredException, ModelNotFoundException, ConflictException;
+	public void editar(T entity) throws ArgumentRequiredException, ModelNotFoundException, ConflictException;
 	
 	public void eliminar(int id) throws ModelNotFoundException;
 	

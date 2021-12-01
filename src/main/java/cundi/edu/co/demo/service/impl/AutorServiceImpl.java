@@ -18,6 +18,7 @@ import cundi.edu.co.demo.exception.ConflictException;
 import cundi.edu.co.demo.exception.ModelNotFoundException;
 import cundi.edu.co.demo.repository.IAutorRepository;
 import cundi.edu.co.demo.service.IAutorService;
+import cundi.edu.co.demo.service.IEditorialConsulta;
 
 @Service
 public class AutorServiceImpl implements IAutorService {
@@ -27,29 +28,7 @@ public class AutorServiceImpl implements IAutorService {
 
 	ModelMapper modelMapper = new ModelMapper();
 
-	@Override
-	public Page<Autor> obtenerPaginado(int page, int size) {
-		// TODO Auto-generated method
-		return null;
-	}
-
-	@Override
-	public Page<Autor> obtenerPaginado(Pageable pageable) {
-		return this.repo.findAll(pageable);
-	}
-
-	@Override
-	public List<Autor> obtener() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Autor retornar(int i) throws ModelNotFoundException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public Autor retornarPorId(Integer id) throws ModelNotFoundException {
 		return repo.findById(id).orElseThrow(() -> new ModelNotFoundException("Autor no encontrado"));
@@ -134,6 +113,52 @@ public class AutorServiceImpl implements IAutorService {
 	public <D, T> Page<D> mapEntityPageIntoDtoPage(Page<T> entities, Class<D> dtoClass) {
 
 		return entities.map(objectEntity -> modelMapper.map(objectEntity, dtoClass));
+	}
+
+	@Override
+	public Autor retornar(int i) throws ModelNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void guardar(Object entity) throws ConflictException, ModelNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void editar(Object entity) throws ArgumentRequiredException, ModelNotFoundException, ConflictException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Page<Object> obtenerPaginado(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Autor> obtenerPaginadog(Pageable pageable) {
+		return this.repo.findAll(pageable);
+	}
+
+	@Override
+	public List<Object> obtener() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Object> obtenerPaginado(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<IEditorialConsulta> retornarEditorialAutores(Long id, Pageable page) {
+		return this.repo.findByQuery(id,page);
 	}
 
 }
